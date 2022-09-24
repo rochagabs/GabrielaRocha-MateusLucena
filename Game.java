@@ -15,16 +15,16 @@
  * @version 2016.02.29
  */
 
+import java.util.Random;
+
 public class Game 
 {
-
     private Parser parser;
     private Room currentRoom;
         
     /**
      * Create the game and initialise its internal map.
      */
-    
     public Game() 
     {
         createRooms();
@@ -36,17 +36,16 @@ public class Game
      */
     private void createRooms()
     {
-        Room entrada, did1, did2, did3, did4, did5, did6, saida;
-     
+        Room entrada, did1, did2, did3, did4, did5, did6;
+
         // create the rooms
-        entrada = new Room("entrada da universidade");
-        did1 = new Room("didatica 1");
-        did2 = new Room("didatica 2");
-        did3 = new Room("didatica 3");
-        did4 = new Room("didatica 4");
-        did5 = new Room("didatica 5");
-        did6 = new Room("didatica 6");
-        saida = new Room("saida da universidade");
+        entrada = new Room("entrada da universidade", 0);
+        did1 = new Room("didatica 1", 1);
+        did2 = new Room("didatica 2", 2);
+        did3 = new Room("didatica 3", 3);
+        did4 = new Room("didatica 4", 4);
+        did5 = new Room("didatica 5", 5);
+        did6 = new Room("didatica 6", 6);
 
         // initialise room exits
         entrada.setExit("leste", did6);
@@ -64,7 +63,6 @@ public class Game
         did3.setExit("leste", did2);
         did3.setExit("oeste", did4);
 
-        did4.setExit("oeste", saida);
         did4.setExit("leste", did3);
 
         did5.setExit("leste", entrada);
@@ -73,36 +71,50 @@ public class Game
         did6.setExit("oeste", entrada);
         did6.setExit("norte", did1);
 
-        currentRoom = entrada;  // start game outside
+        currentRoom = entrada;  // start game
     }
 
     /**
      *  Main play routine.  Loops until end of play.
      */
 
-    public void play() 
-    {            
+ //preciso colocar isso no play, não sei como kkkkk
+    public void findDiploma (Room sala){
+        boolean ganhou = true;
+        Random gerador = new Random();
+        int diploma = gerador.nextInt(1) * 6; // retorna numero aleatorio de 1 a 6
+        while (!ganhou) {
+            if (diploma == sala.getNumber()) {
+                System.out.println( "VOCÊ ENCONTROU O DIPLOMA");
+                ganhou = true;
+                //Command command = parser.getCommand();
+            //ganhou = processCommand(command);
+        }
+            
+        }    }
+
+    public void play() {
         printWelcome();
 
-        // Enter the main command loop.  Here we repeatedly read commands and
+        // Enter the main command loop. Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
-        while (! finished) {
+        while (!finished) {
             Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Obrigada por jogar. Até mais!");
-    }
+            finished = processCommand(command);}
+
+
+        System.out.println("Obrigada por jogar. Até mais!");}
 
     /**
      * Print out the opening message for the player.
      */
-    private void printWelcome()
-    {
+    private void printWelcome() {
         System.out.println();
         System.out.println("Você está prestes a se formar na UFS!");
-        System.out.println("Escape UFS é um jogo baseado na ideia de sair da UFS depois de formado, será que você consegue?");
+        System.out.println(
+                "Escape UFS é um jogo baseado na ideia de sair da UFS depois de formado, será que você consegue?");
         System.out.println("Digite '" + CommandWord.HELP + "' se precisar de ajuda.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -110,11 +122,11 @@ public class Game
 
     /**
      * Given a command, process (that is: execute) the command.
+     * 
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) 
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
@@ -134,6 +146,7 @@ public class Game
 
             case QUIT:
                 wantToQuit = quit(command);
+                System.out.println("Você trancou a faculdade :(");
                 break;
         }
         return wantToQuit;
@@ -143,11 +156,10 @@ public class Game
 
     /**
      * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
+     * Here we print some stupid, cryptic message and a list of the
      * command words.
      */
-    private void printHelp() 
-    {
+    private void printHelp() {
         System.out.println("Você precisa do seu diploma");
         System.out.println("para finalmente se forrmar.");
         System.out.println();
@@ -155,13 +167,12 @@ public class Game
         parser.showCommands();
     }
 
-    /** 
+    /**
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
+    private void goRoom(Command command) {
+        if (!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Aonde ir?");
             return;
@@ -174,27 +185,26 @@ public class Game
 
         if (nextRoom == null) {
             System.out.println("Não tem um atalho nessa direção!");
-        }
-        else {
+        } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
     }
 
-    /** 
+    /**
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
+     * 
      * @return true, if this command quits the game, false otherwise.
      */
-    private boolean quit(Command command) 
-    {
-        if(command.hasSecondWord()) {
+    private boolean quit(Command command) {
+        if (command.hasSecondWord()) {
             System.out.println("Trancar o quê?");
             return false;
-        }
-        else {
-            return true;  // signal that we want to quit
+        } else {
+            return true; // signal that we want to quit
         }
     }
-    
-}
+
+
+        }
