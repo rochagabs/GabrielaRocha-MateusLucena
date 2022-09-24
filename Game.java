@@ -17,10 +17,18 @@
 
 import java.util.Random;
 
+//import javax.sound.sampled.SourceDataLine;
+
+import java.util.ArrayList;
+
+
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
+    private Diploma diploma;
+    ArrayList<String> dicas = new ArrayList<String>();
+
         
     /**
      * Create the game and initialise its internal map.
@@ -29,6 +37,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+       
     }
 
     /**
@@ -78,20 +87,12 @@ public class Game
      *  Main play routine.  Loops until end of play.
      */
 
- //preciso colocar isso no play, não sei como kkkkk
-    public void findDiploma (Room sala){
-        boolean ganhou = true;
-        Random gerador = new Random();
-        int diploma = gerador.nextInt(1) * 6; // retorna numero aleatorio de 1 a 6
-        while (!ganhou) {
-            if (diploma == sala.getNumber()) {
-                System.out.println( "VOCÊ ENCONTROU O DIPLOMA");
-                ganhou = true;
-                //Command command = parser.getCommand();
-            //ganhou = processCommand(command);
-        }
-            
-        }    }
+
+    //se o numero do diploma é o mesmo da sala onde estamos
+    public boolean foundDiploma (Room sala) {
+        return (diploma.diplomaNum() == sala.getNumber()); 
+    }
+
 
     public void play() {
         printWelcome();
@@ -114,9 +115,22 @@ public class Game
         System.out.println();
         System.out.println("Você está prestes a se formar na UFS!");
         System.out.println(
-                "Escape UFS é um jogo baseado na ideia de sair da UFS depois de formado, será que você consegue?");
+                "Escape UFS é um jogo baseado na ideia de conseguir o diploma da UFS depois de formado, será que você consegue?");
         System.out.println("Digite '" + CommandWord.HELP + "' se precisar de ajuda.");
         System.out.println();
+        Random gerador = new Random();
+        int aleatorio = gerador.nextInt(6) + 1;
+        String numdica = "";
+        // retorna numero aleatorio de 1 a 6 e pega a dica correspondente
+        if (aleatorio==1) {numdica="dica: 14x+19-33x=0";}
+        else if (aleatorio==2) {numdica="dica: o único primo par";}
+        else if (aleatorio==3) {numdica="dica: 891/297";}
+        else if (aleatorio==4) {numdica="dica: 92/23";}
+        else if (aleatorio==5) {numdica="dica: 75x-375=0";}
+        else if (aleatorio==6) {numdica="dica: quanto é meia dúzia?";}
+
+        diploma = new Diploma(aleatorio, numdica);
+        System.out.println(diploma.getDica());
         System.out.println(currentRoom.getLongDescription());
     }
 
@@ -149,6 +163,13 @@ public class Game
                 System.out.println("Você trancou a faculdade :(");
                 break;
         }
+
+        if(foundDiploma(currentRoom)) {
+                System.out.println("--------------------------------VOCÊ ENCONTROU O DIPLOMA---------------------------------");
+                System.out.println("-------------------------------PARABÉNS PELA FORMATURA!!!--------------------------------");
+                wantToQuit = true;
+        }
+
         return wantToQuit;
     }
 
@@ -161,7 +182,7 @@ public class Game
      */
     private void printHelp() {
         System.out.println("Você precisa do seu diploma");
-        System.out.println("para finalmente se forrmar.");
+        System.out.println("para finalmente se formar.");
         System.out.println();
         System.out.println("Seus comandos são: ");
         parser.showCommands();
