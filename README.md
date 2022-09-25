@@ -5,7 +5,7 @@
 O jogo te colocará na entrada da universidade, receberá uma dica da localização do diploma. Neste momento você pode escolhar para onde ir bastando digitar a direção desejada, dentre elas: 
 
 * Norte (cima)
-* Sul (baixo
+* Sul (baixo)
 * Leste (direita)
 * Oeste (esquerda).
 
