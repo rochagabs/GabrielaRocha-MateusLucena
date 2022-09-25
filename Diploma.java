@@ -1,4 +1,6 @@
-package src.game;
+
+
+
 public class Diploma {
     private int numero;
     private String dica;

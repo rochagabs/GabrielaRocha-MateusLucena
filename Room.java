@@ -1,4 +1,6 @@
-package src.game;
+
+
+
 import java.util.Set;
 import java.util.HashMap;
 //import java.util.Iterator;
@@ -78,7 +80,7 @@ public class Room {
      * @return Details of the room's exits.
      */
     private String getExitString() {
-        String returnString = "Exits:";
+        String returnString = "Direções:";
         Set<String> keys = exits.keySet();
         for (String exit : keys) {
             returnString += " " + exit;
