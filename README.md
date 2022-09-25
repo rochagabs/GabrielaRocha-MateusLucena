@@ -2,12 +2,12 @@
 
 **Como jogar:**
 
-O jogo te colocará na entrada da universidade, receberá uma dica da localização do diploma. Neste momento você pode escolhar para onde ir bastando digitar a direção desejada, dentre elas: 
+O jogo te colocará na entrada da universidade, receberá uma dica da localização do diploma. Neste momento você pode escolhar para onde ir bastando digitar:
 
-* Norte (cima)
-* Sul (baixo
-* Leste (direita)
-* Oeste (esquerda).
+* ir norte (cima)
+* ir sul (baixo)
+* ir leste (direita)
+* ir oeste (esquerda).
 
 No entanto, pode ser que alguma das direções não esteja disponível, o motivo é o limite do mapa.  
 Assim que encontrar o diploma, você finaliza o jogo.
