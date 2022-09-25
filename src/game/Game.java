@@ -1,3 +1,4 @@
+package src.game;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -113,7 +114,7 @@ public class Game
      */
     private void printWelcome() {
         System.out.println();
-        System.out.println("Você está prestes a se formar na UFS!");
+        System.out.println("\nVocê está prestes a se formar na UFS!");
         System.out.println(
                 "Escape UFS é um jogo baseado na ideia de conseguir o diploma da UFS depois de formado, será que você consegue?");
         System.out.println("Digite '" + CommandWord.HELP + "' se precisar de ajuda.");
